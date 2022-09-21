@@ -5,7 +5,8 @@ package binTree.java;
  * and contains functions that are used in order to
  * navigate the tree
 */
-public class BinTree<T> {
+public class BinTree<T extends Comparable<T>> {
+
     public interface Visit<T> {
         public void visit(T data);
     }
@@ -37,7 +38,17 @@ public class BinTree<T> {
     public T getData() {
         return data;
     }
-    /** convinence function to set default arguments*/
+    /** inserts the given data into the tree */
+    public void insert(T data) {
+        if (data.compareTo(this.data) < 0) {
+            getLeftPointer().insert(data);
+        }
+        else if (data.compareTo(this.data) > 0) {
+            getRightPointer().insert(data);       
+        }
+    }
+
+    /** convinence function to set default arguments of vlr*/
     public void vlr() {
         vlr(this,new PrintVisit<T>());
     }
