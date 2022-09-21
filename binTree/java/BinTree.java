@@ -6,7 +6,9 @@ package binTree.java;
  * navigate the tree
 */
 public class BinTree<T extends Comparable<T>> {
-
+    public BinTree(T data) {
+        this.data = data;
+    }
     public interface Visit<T> {
         public void visit(T data);
     }
@@ -38,28 +40,63 @@ public class BinTree<T extends Comparable<T>> {
     public T getData() {
         return data;
     }
+    /** convinence function to safely insert data
+     * in nodes to our right
+    */
+    private void insertRight(T data) {
+        if (getRightPointer() == null) {
+            rightPointer = new BinTree<T>(data);
+        } else {
+            getRightPointer().insert(data);
+        }
+    }
+    /** 
+     * private convinence function to insert data to the LEFT of the current
+     * node safely
+    */
+    private void insertLeft(T data) {
+        if (getLeftPointer() == null) {
+            leftPointer = new BinTree<T>(data);
+        } else {
+            getLeftPointer().insert(data);
+        }
+    }
     /** inserts the given data into the tree */
     public void insert(T data) {
         if (data.compareTo(this.data) < 0) {
-            getLeftPointer().insert(data);
+            insertLeft(data);
         }
         else if (data.compareTo(this.data) > 0) {
-            getRightPointer().insert(data);       
+            insertRight(data);
         }
     }
 
     /** convinence function to set default arguments of vlr*/
     public void vlr() {
-        vlr(this,new PrintVisit<T>());
+        vlr(new PrintVisit<T>());
     }
     /** visit left right function */
-    public void vlr(BinTree<T> t,Visit<T> v) {
-        v.visit(t.data);
-        if (t.getLeftPointer() != null) {
-            vlr(t.getLeftPointer(),v);
+    public void vlr(Visit<T> v) {
+        v.visit(data);
+        if (getLeftPointer() != null) {
+            getLeftPointer().vlr(v);
         }
-        if (t.getRightPointer() != null) {
-            vlr(t.getRightPointer(),v);
+        if (getRightPointer() != null) {
+            getRightPointer().vlr(v);
+        }
+    }
+
+    public void lvr() {
+        lvr(new PrintVisit<T>());
+    }
+    /**left visit right function */
+    public void lvr(Visit<T> v) {
+        if (getLeftPointer() != null) {
+            getLeftPointer().lvr(v);
+        }
+        v.visit(data);
+        if (getRightPointer() != null) {
+            getRightPointer().lvr(v);
         }
     }
 }
