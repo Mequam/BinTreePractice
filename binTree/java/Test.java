@@ -24,5 +24,8 @@ public class Test {
         //left visit right
         System.out.println("[*] starting lvr");
         intTree.lvr();
+
+        System.out.println("[*] starting lrv");
+        intTree.lrv();
     }
 }

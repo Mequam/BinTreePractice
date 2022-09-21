@@ -86,6 +86,7 @@ public class BinTree<T extends Comparable<T>> {
         }
     }
 
+    /**convineince function to left visit right */
     public void lvr() {
         lvr(new PrintVisit<T>());
     }
@@ -99,4 +100,21 @@ public class BinTree<T extends Comparable<T>> {
             getRightPointer().lvr(v);
         }
     }
+
+    /**convineince function to left visit right */
+    public void lrv() {
+        lrv(new PrintVisit<T>());
+    }
+    /**left right visit function */
+    public void lrv(Visit<T> v) {
+        if (getLeftPointer() != null) {
+            getLeftPointer().lrv(v);
+        }
+        if (getRightPointer() != null) {
+            getRightPointer().lrv(v);
+        }
+        v.visit(data);
+    }
+
+    
 }
