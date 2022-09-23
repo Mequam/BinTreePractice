@@ -6,6 +6,9 @@ package binTree.java;
  * navigate the tree
 */
 public class BinTree<T extends Comparable<T>> {
+    public BinTree() {
+
+    }
     public BinTree(T data) {
         this.data = data;
     }
@@ -14,9 +17,10 @@ public class BinTree<T extends Comparable<T>> {
     }
     public class PrintVisit<J> implements Visit<J> {
         public void visit(J data) {
-            System.out.println(data);
+            System.out.print(data.toString() + " ");
         }
     }
+
     /** 
      * the pointers to the left and right of the tree,
      * private variables so as to remain protected
@@ -26,7 +30,7 @@ public class BinTree<T extends Comparable<T>> {
     /** 
      * the data stored at this node
     */
-    private T data;
+    private T data = null;//data defaults to null
 
     /** 
      * getters for the left and right pointers of the tree
@@ -63,6 +67,10 @@ public class BinTree<T extends Comparable<T>> {
     }
     /** inserts the given data into the tree */
     public void insert(T data) {
+        if (this.data == null) {
+            this.data = data;
+        }
+
         if (data.compareTo(this.data) < 0) {
             insertLeft(data);
         }
@@ -70,6 +78,9 @@ public class BinTree<T extends Comparable<T>> {
             insertRight(data);
         }
     }
+
+    //visit functions
+
 
     /** convinence function to set default arguments of vlr*/
     public void vlr() {
@@ -115,6 +126,45 @@ public class BinTree<T extends Comparable<T>> {
         }
         v.visit(data);
     }
-
     
+    public void vrl() {
+        vrl(new PrintVisit<T>());
+    }
+    /**left right visit function */
+    public void vrl(Visit<T> v) {
+        v.visit(data);
+        if (getRightPointer() != null) {
+            getRightPointer().vrl(v);
+        }
+        if (getLeftPointer() != null) {
+            getLeftPointer().vrl(v);
+        }
+    }
+    
+    public void rvl() {
+        rvl(new PrintVisit<T>());
+    }
+    /**right visit left*/
+    public void rvl(Visit<T> v) {
+        if (getRightPointer() != null) {
+            getRightPointer().rvl(v);
+        }
+        v.visit(data);
+        if (getLeftPointer() != null) {
+            getLeftPointer().rvl(v);
+        }
+    }
+    public void rlv() {
+        rlv(new PrintVisit<T>());
+    }
+    /**right visit left*/
+    public void rlv(Visit<T> v) {
+        if (getRightPointer() != null) {
+            getRightPointer().rlv(v);
+        }
+        if (getLeftPointer() != null) {
+            getLeftPointer().rlv(v);
+        }
+        v.visit(data);
+    }
 }
