@@ -9,48 +9,44 @@ public class Test {
         BinTree<Integer> intTree = new BinTree<Integer>();
 
         String line = sc.nextLine();
-        do {
+
+        String [] splt_inp = line.split(" ");
+        for (int i = 0; i < splt_inp.length; i++) {
             try {
-                intTree.insert(Integer.parseInt(line));
+                intTree.insert(Integer.parseInt(splt_inp[i]));
             }
             catch (Exception e) {
-                System.out.println(e.toString());
-                System.out.println("[ERROR] please pass in an integer type!");
+                System.out.println("[WARNING] invalid integer detected, skipping " + splt_inp[i]);
             }
-            line = sc.nextLine();
         }
-        while (!line.equals("d"));
-
-        //construct a test tree
-
-
-        //visit thel left then right
-        System.out.print("[*] vlr ");
-        intTree.vlr();
-        System.out.println();
-
+        
+        System.out.println("\n");
+        
         //left visit right
-        System.out.print("[*] lvr ");
+        System.out.print("Depth First Traversal: Inorder, LVR -> ");
         intTree.lvr();
-        System.out.println();
-
-
-        System.out.print("[*] lrv ");
-        intTree.lrv();
+        System.out.println("\n");
         
-        System.out.println();
-
-        
-        System.out.print("[*] vrl ");
-        intTree.vrl();
-        System.out.println();
-
-        System.out.print("[*] rvl ");
+        System.out.print("Depth First Traversal: Inorder, RVL -> ");
         intTree.rvl();
-        System.out.println();
+        System.out.println("\n");
+        
+        System.out.print("Depth First Traversal: Preorder, VLR -> ");
+        intTree.vlr();
+        System.out.println("\n");
 
-        System.out.print("[*] rlv ");
+        
+        System.out.print("Depth First Traversal: Preorder, VRL -> ");
+        intTree.vrl();
+        System.out.println("\n");
+        
+        System.out.print("Depth First Traversal: Postorder, LRV -> ");
+        intTree.lrv();
+        System.out.println("\n");
+
+        System.out.print("Depth First Traversal: Postorder, RLV -> ");
         intTree.rlv();
-        System.out.println();
+        
+        System.out.println("\n");
     } 
 }
