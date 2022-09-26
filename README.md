@@ -1,4 +1,4 @@
-# Homework 2 - CS 316 01 FA22Assignments
+# Homework 2 - CS 316 01 FA22 Assignments
 
 **Binary Trees**
 
